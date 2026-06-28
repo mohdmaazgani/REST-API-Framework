@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+        content="Production-ready REST API built with Node.js, Express, MongoDB — featuring JWT auth, RBAC, rate limiting, and Swagger docs." />
+    <title>REST API Framework — Node.js · Express · MongoDB</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav class="nav" id="nav">
+        <div class="nav__inner">
+            <a href="#" class="nav__logo">
+                <span class="logo-bracket">{</span>
+                <span class="logo-text">REST API</span>
+                <span class="logo-bracket">}</span>
+            </a>
+            <ul class="nav__links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#endpoints">Endpoints</a></li>
+                <li><a href="#architecture">Architecture</a></li>
+                <li><a href="#security">Security</a></li>
+                <li><a href="#tech">Tech Stack</a></li>
+            </ul>
+            <div class="nav__actions">
+                <a href="https://github.com/mohdmaazgani/rest-api-framework" target="_blank" class="btn btn--ghost">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.749 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                    </svg>
+                    GitHub
+                </a>
+                <a href="/api-docs" class="btn btn--primary">View API Docs</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero__bg">
+            <div class="grid-lines"></div>
+            <div class="glow glow--blue"></div>
+            <div class="glow glow--purple"></div>
+        </div>
+
+        <div class="container">
+            <div class="hero__inner">
+                <div class="hero__content">
+                    <div class="hero__badge">
+                        <span class="badge-dot"></span>
+                        Production Ready · Open Source
+                    </div>
+
+                    <h1 class="hero__title">
+                        <span class="title-line">REST API</span>
+                        <span class="title-line title-line--accent">Framework</span>
+                    </h1>
+
+                    <p class="hero__subtitle">
+                        A complete, production-ready REST API built with
+                        <strong>Node.js</strong>, <strong>Express</strong> &amp; <strong>MongoDB</strong>.
+                        JWT authentication, role-based access control, rate limiting,
+                        and full Swagger documentation — all in one clean codebase.
+                    </p>
+
+                    <div class="hero__tags">
+                        <span class="tag tag--node">Node.js 18+</span>
+                        <span class="tag tag--express">Express</span>
+                        <span class="tag tag--mongo">MongoDB</span>
+                        <span class="tag tag--jwt">JWT</span>
+                        <span class="tag tag--swagger">Swagger</span>
+                        <span class="tag tag--jest">Jest</span>
+                    </div>
+
+                    <div class="hero__cta">
+                        <a href="#features" class="btn btn--primary btn--lg">Explore Features</a>
+                        <a href="https://github.com/mohdmaazgani/rest-api-framework" target="_blank"
+                            class="btn btn--outline btn--lg">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.749 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                            </svg>
+                            View on GitHub
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Terminal -->
+                <div class="hero__terminal">
+                    <div class="terminal">
+                        <div class="terminal__bar">
+                            <span class="terminal__dot terminal__dot--red"></span>
+                            <span class="terminal__dot terminal__dot--yellow"></span>
+                            <span class="terminal__dot terminal__dot--green"></span>
+                            <span class="terminal__title">REST API Framework — Live Demo</span>
+                        </div>
+                        <div class="terminal__body" id="terminal-body">
+                            <div class="terminal__line">
+                                <span class="t-muted">$ </span>
+                                <span class="t-cmd" id="typed-cmd"></span>
+                                <span class="cursor" id="cursor">|</span>
+                            </div>
+                            <div class="terminal__output" id="terminal-output"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="hero__stats">
+                <div class="stat">
+                    <span class="stat__num">29</span>
+                    <span class="stat__label">Source Files</span>
+                </div>
+                <div class="stat__divider"></div>
+                <div class="stat">
+                    <span class="stat__num">20+</span>
+                    <span class="stat__label">Tests Passing</span>
+                </div>
+                <div class="stat__divider"></div>
+                <div class="stat">
+                    <span class="stat__num">7</span>
+                    <span class="stat__label">Security Layers</span>
+                </div>
+                <div class="stat__divider"></div>
+                <div class="stat">
+                    <span class="stat__num">3</span>
+                    <span class="stat__label">Access Roles</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUICK START -->
+    <section class="quickstart">
+        <div class="container">
+            <div class="quickstart__inner">
+                <div class="qs-step">
+                    <span class="qs-num">01</span>
+                    <p class="qs-label">Clone &amp; Install</p>
+                    <code class="qs-code">npm install</code>
+                </div>
+                <div class="qs-arrow">→</div>
+                <div class="qs-step">
+                    <span class="qs-num">02</span>
+                    <p class="qs-label">Configure</p>
+                    <code class="qs-code">cp .env.example .env</code>
+                </div>
+                <div class="qs-arrow">→</div>
+                <div class="qs-step">
+                    <span class="qs-num">03</span>
+                    <p class="qs-label">Start Dev Server</p>
+                    <code class="qs-code">npm run dev</code>
+                </div>
+                <div class="qs-arrow">→</div>
+                <div class="qs-step">
+                    <span class="qs-num">04</span>
+                    <p class="qs-label">Open Browser</p>
+                    <code class="qs-code">localhost:5000</code>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">// features</span>
+                <h2 class="section-title">Everything You Need</h2>
+                <p class="section-sub">Every feature is production-grade, not a demo stub. Each decision has a reason
+                    behind it.</p>
+            </div>
+
+            <div class="features__grid">
+
+                <div class="feature-card feature-card--wide">
+                    <div class="feature-card__icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8">
+                            <rect x="3" y="11" width="18" height="11" rx="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">JWT Authentication</h3>
+                    <p class="feature-card__desc">Dual-token architecture — short-lived access tokens with long-lived
+                        refresh tokens. Automatic rotation with server-side replay attack detection: if a used token is
+                        resubmitted, all sessions are immediately wiped.</p>
+                    <div class="feature-card__tags">
+                        <span>Access Token</span><span>Refresh Token</span><span>Rotation</span><span>Replay
+                            Detection</span>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card__icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                            <circle cx="9" cy="7" r="4" />
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Role-Based Access Control</h3>
+                    <p class="feature-card__desc">Three-tier RBAC — <code>user</code>, <code>moderator</code>,
+                        <code>admin</code>. Enforced via composable middleware. Ownership checks for resource-level
+                        permissions.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card__icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8">
+                            <circle cx="12" cy="12" r="10" />
+                            <polyline points="12 6 12 12 16 14" />
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Rate Limiting</h3>
+                    <p class="feature-card__desc">Per-route limiters tuned to attack surface. Auth: 10 req/15min. Public
+                        reads: 60 req/min. Global: 100 req/15min. Rate limit headers included.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card__icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8">
+                            <polyline points="9 11 12 14 22 4" />
+                            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Input Validation</h3>
+                    <p class="feature-card__desc">Comprehensive <code>express-validator</code> chains for every
+                        endpoint. Structured error responses with field-level details. Client never sees raw DB errors.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card__icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Security Hardening</h3>
+                    <p class="feature-card__desc">7 security layers — Helmet, CORS, NoSQL injection prevention, XSS
+                        sanitization, bcrypt cost factor 12, body size limits, and account lockout.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card__icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                            <polyline points="14 2 14 8 20 8" />
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Swagger Documentation</h3>
+                    <p class="feature-card__desc">Full OpenAPI 3.0 spec at <code>/api-docs</code>. Interactive UI with
+                        persistent authorization and schema definitions for every model and endpoint.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card__icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8">
+                            <line x1="8" y1="6" x2="21" y2="6" />
+                            <line x1="8" y1="12" x2="21" y2="12" />
+                            <line x1="8" y1="18" x2="21" y2="18" />
+                            <line x1="3" y1="6" x2="3.01" y2="6" />
+                            <line x1="3" y1="12" x2="3.01" y2="12" />
+                            <line x1="3" y1="18" x2="3.01" y2="18" />
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Structured Logging</h3>
+                    <p class="feature-card__desc">Winston with daily rotating files — separate error, combined,
+                        exception logs. Colorized console in development. Configurable log level via env vars.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-card__icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+                        </svg>
+                    </div>
+                    <h3 class="feature-card__title">Aggregation Pipeline</h3>
+                    <p class="feature-card__desc">MongoDB <code>$group</code> pipeline for product stats by category —
+                        count, avg/min/max price, total stock. Real aggregation beyond basic CRUD.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ENDPOINTS -->
+    <section class="endpoints" id="endpoints">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">// api reference</span>
+                <h2 class="section-title">API Endpoints</h2>
+                <p class="section-sub">Base URL: <code class="inline-code">http://localhost:5000/api/v1</code></p>
+            </div>
+
+            <div class="endpoints__tabs">
+                <button class="ep-tab ep-tab--active" data-group="auth">Auth</button>
+                <button class="ep-tab" data-group="users">Users</button>
+                <button class="ep-tab" data-group="products">Products</button>
+                <button class="ep-tab" data-group="health">Health</button>
+            </div>
+
+            <div class="endpoints__table" id="endpoints-table"></div>
+        </div>
+    </section>
+
+    <!-- ARCHITECTURE -->
+    <section class="arch" id="architecture">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">// architecture</span>
+                <h2 class="section-title">System Architecture</h2>
+                <p class="section-sub">Clean layered architecture — every request flows through the same predictable
+                    stack.</p>
+            </div>
+
+            <div class="arch__diagram">
+                <div class="arch-layer arch-layer--client">
+                    <div class="arch-layer__label">Client</div>
+                    <div class="arch-layer__content">HTTP Request</div>
+                </div>
+                <div class="arch-arrow">↓</div>
+                <div class="arch-layer arch-layer--security">
+                    <div class="arch-layer__label">Security Layer</div>
+                    <div class="arch-layer__row">
+                        <div class="arch-chip">Helmet</div>
+                        <div class="arch-chip">CORS</div>
+                        <div class="arch-chip">Rate Limiter</div>
+                        <div class="arch-chip">Mongo Sanitize</div>
+                    </div>
+                </div>
+                <div class="arch-arrow">↓</div>
+                <div class="arch-layer arch-layer--routes">
+                    <div class="arch-layer__label">Router Layer</div>
+                    <div class="arch-layer__row">
+                        <div class="arch-chip arch-chip--blue">/auth</div>
+                        <div class="arch-chip arch-chip--blue">/users</div>
+                        <div class="arch-chip arch-chip--blue">/products</div>
+                        <div class="arch-chip arch-chip--blue">/health</div>
+                    </div>
+                </div>
+                <div class="arch-arrow">↓</div>
+                <div class="arch-layer arch-layer--middleware">
+                    <div class="arch-layer__label">Middleware Chain</div>
+                    <div class="arch-layer__row">
+                        <div class="arch-chip arch-chip--purple">authenticate</div>
+                        <div class="arch-chip arch-chip--purple">authorize</div>
+                        <div class="arch-chip arch-chip--purple">validate</div>
+                        <div class="arch-chip arch-chip--purple">catchAsync</div>
+                    </div>
+                </div>
+                <div class="arch-arrow">↓</div>
+                <div class="arch-layer arch-layer--controllers">
+                    <div class="arch-layer__label">Controllers</div>
+                    <div class="arch-layer__row">
+                        <div class="arch-chip arch-chip--green">authController</div>
+                        <div class="arch-chip arch-chip--green">userController</div>
+                        <div class="arch-chip arch-chip--green">productController</div>
+                    </div>
+                </div>
+                <div class="arch-arrow">↓</div>
+                <div class="arch-layer arch-layer--services">
+                    <div class="arch-layer__label">Services</div>
+                    <div class="arch-layer__row">
+                        <div class="arch-chip arch-chip--yellow">tokenService</div>
+                    </div>
+                </div>
+                <div class="arch-arrow">↓</div>
+                <div class="arch-layer arch-layer--data">
+                    <div class="arch-layer__label">Data Layer</div>
+                    <div class="arch-layer__row">
+                        <div class="arch-chip">User Model</div>
+                        <div class="arch-chip">Product Model</div>
+                    </div>
+                </div>
+                <div class="arch-arrow">↓</div>
+                <div class="arch-layer arch-layer--db">
+                    <div class="arch-layer__label">Database</div>
+                    <div class="arch-layer__content">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8">
+                            <ellipse cx="12" cy="5" rx="9" ry="3" />
+                            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                        </svg>
+                        MongoDB
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECURITY -->
+    <section class="security" id="security">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">// security</span>
+                <h2 class="section-title">Security Layers</h2>
+                <p class="section-sub">Defense-in-depth — multiple independent layers so no single failure compromises
+                    the system.</p>
+            </div>
+
+            <div class="security__grid">
+                <div class="sec-card">
+                    <div class="sec-card__num">01</div>
+                    <h4>HTTP Security Headers</h4>
+                    <p>Helmet sets <code>HSTS</code>, <code>CSP</code>, <code>X-Frame-Options</code>, and more on every
+                        response.</p>
+                    <span class="sec-badge">helmet</span>
+                </div>
+                <div class="sec-card">
+                    <div class="sec-card__num">02</div>
+                    <h4>CORS Policy</h4>
+                    <p>Configurable origin whitelist via <code>ALLOWED_ORIGINS</code> env var. Exposes rate limit
+                        headers. Credentials-aware.</p>
+                    <span class="sec-badge">cors</span>
+                </div>
+                <div class="sec-card">
+                    <div class="sec-card__num">03</div>
+                    <h4>NoSQL Injection Prevention</h4>
+                    <p>Strips <code>$</code> and <code>.</code> operators from all user-supplied input before it reaches
+                        the database.</p>
+                    <span class="sec-badge">mongo-sanitize</span>
+                </div>
+                <div class="sec-card">
+                    <div class="sec-card__num">04</div>
+                    <h4>Password Hashing</h4>
+                    <p>bcrypt with cost factor <strong>12</strong>. Passwords never stored or returned in plain text.
+                        Schema uses <code>select: false</code>.</p>
+                    <span class="sec-badge">bcryptjs</span>
+                </div>
+                <div class="sec-card">
+                    <div class="sec-card__num">05</div>
+                    <h4>JWT with Separate Secrets</h4>
+                    <p>Access and refresh tokens use different secrets, different expiries, and unique
+                        <code>jwtid</code> per token.
+                    </p>
+                    <span class="sec-badge">jsonwebtoken</span>
+                </div>
+                <div class="sec-card">
+                    <div class="sec-card__num">06</div>
+                    <h4>Rate Limiting</h4>
+                    <p>Three separate limiters tuned per route type. Auth: 10 req/15min. Public reads: 60 req/min.
+                        Global: 100 req/15min.</p>
+                    <span class="sec-badge">express-rate-limit</span>
+                </div>
+                <div class="sec-card">
+                    <div class="sec-card__num">07</div>
+                    <h4>Account Lockout</h4>
+                    <p>After 5 consecutive failed login attempts, the account locks for 2 hours. Resets on next
+                        successful login.</p>
+                    <span class="sec-badge">custom</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RBAC TABLE -->
+    <section class="rbac">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">// access control</span>
+                <h2 class="section-title">Role-Based Permissions</h2>
+            </div>
+            <div class="rbac__table-wrap">
+                <table class="rbac-table">
+                    <thead>
+                        <tr>
+                            <th>Permission</th>
+                            <th><span class="role role--user">user</span></th>
+                            <th><span class="role role--mod">moderator</span></th>
+                            <th><span class="role role--admin">admin</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Manage own profile</td>
+                            <td><span class="tick">✓</span></td>
+                            <td><span class="tick">✓</span></td>
+                            <td><span class="tick">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Create products</td>
+                            <td><span class="tick">✓</span></td>
+                            <td><span class="tick">✓</span></td>
+                            <td><span class="tick">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Edit / delete own products</td>
+                            <td><span class="tick">✓</span></td>
+                            <td><span class="tick">✓</span></td>
+                            <td><span class="tick">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Edit / delete any product</td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="tick">✓</span></td>
+                            <td><span class="tick">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>View all users</td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="tick">✓</span></td>
+                            <td><span class="tick">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Manage user roles</td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="tick">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Activate / deactivate users</td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="tick">✓</span></td>
+                        </tr>
+                        <tr>
+                            <td>Permanently delete users</td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="cross">✗</span></td>
+                            <td><span class="tick">✓</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECH STACK -->
+    <section class="tech" id="tech">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">// tech stack</span>
+                <h2 class="section-title">Built With</h2>
+            </div>
+            <div class="tech__grid">
+                <div class="tech-card">
+                    <div class="tech-card__icon tech-card__icon--node"></div>
+                    <h4>Node.js 18+</h4>
+                    <p>JavaScript runtime environment</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-card__icon tech-card__icon--express"></div>
+                    <h4>Express 4.x</h4>
+                    <p>HTTP server and routing</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-card__icon tech-card__icon--mongo"></div>
+                    <h4>MongoDB + Mongoose</h4>
+                    <p>Data persistence and ODM</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-card__icon tech-card__icon--jwt"></div>
+                    <h4>JWT + bcryptjs</h4>
+                    <p>Token signing and hashing</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-card__icon tech-card__icon--swagger"></div>
+                    <h4>Swagger UI</h4>
+                    <p>Interactive API documentation</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-card__icon tech-card__icon--winston"></div>
+                    <h4>Winston</h4>
+                    <p>Structured production logging</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-card__icon tech-card__icon--jest"></div>
+                    <h4>Jest + Supertest</h4>
+                    <p>Unit and integration testing</p>
+                </div>
+                <div class="tech-card">
+                    <div class="tech-card__icon tech-card__icon--helmet"></div>
+                    <h4>Helmet + CORS</h4>
+                    <p>Security hardening</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta__inner">
+                <div class="cta__glow"></div>
+                <h2 class="cta__title">Ready to explore it?</h2>
+                <p class="cta__sub">Clone the repo, start the dev server, and hit the Swagger UI in under 2 minutes.</p>
+                <div class="cta__buttons">
+                    <a href="https://github.com/yourusername/rest-api-framework" target="_blank"
+                        class="btn btn--primary btn--lg">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.749 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+                        </svg>
+                        View on GitHub
+                    </a>
+                    <a href="/api-docs" class="btn btn--outline btn--lg">Open Swagger UI →</a>
+                </div>
+                <div class="cta__copy">
+                    <code>git clone https://github.com/yourusername/rest-api-framework.git</code>
+                    <button class="copy-btn" id="copy-btn" aria-label="Copy clone command">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__inner">
+                <div class="footer__brand">
+                    <a href="#" class="nav__logo">
+                        <span class="logo-bracket">{</span>
+                        <span class="logo-text">REST API</span>
+                        <span class="logo-bracket">}</span>
+                    </a>
+                    <p>A production-ready REST API framework.<br />Built to learn. Built to ship.</p>
+                </div>
+                <div class="footer__links">
+                    <div class="footer__col">
+                        <h5>Project</h5>
+                        <a href="#features">Features</a>
+                        <a href="#endpoints">Endpoints</a>
+                        <a href="#architecture">Architecture</a>
+                        <a href="#security">Security</a>
+                    </div>
+                    <div class="footer__col">
+                        <h5>Resources</h5>
+                        <a href="/api-docs">Swagger UI</a>
+                        <a href="/api/v1/health">Health Check</a>
+                        <a href="https://github.com/mohdmaazgani/rest-api-framework" target="_blank">GitHub Repo</a>
+                    </div>
+                    <div class="footer__col">
+                        <h5>Stack</h5>
+                        <a href="https://nodejs.org" target="_blank">Node.js</a>
+                        <a href="https://expressjs.com" target="_blank">Express</a>
+                        <a href="https://mongodb.com" target="_blank">MongoDB</a>
+                        <a href="https://swagger.io" target="_blank">Swagger</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <p>MIT License · Built with ❤️ by <a href="https://github.com/mohdmaazgani" target="_blank"> Mohd Maaz
+                        Gani
+                    </a></p>
+                <p class="footer__stack-line">Node.js · Express · MongoDB · JWT · Swagger · Jest</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

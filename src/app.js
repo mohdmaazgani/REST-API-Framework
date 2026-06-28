@@ -1,5 +1,5 @@
 "use strict";
-
+const path = require("path");
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
@@ -57,13 +57,9 @@ app.get("/api-docs.json", (req, res) => {
   res.send(swaggerSpec);
 });
 
+app.use(express.static(path.join(__dirname, "..", "public")));
 app.get("/", (req, res) =>
-  res.json({
-    success: true,
-    message: "REST API Framework",
-    docs: "/api-docs",
-    health: `${API}/health`,
-  }),
+  res.sendFile(path.join(__dirname, "..", "public", "index.html")),
 );
 
 app.all("*", (req, res, next) =>

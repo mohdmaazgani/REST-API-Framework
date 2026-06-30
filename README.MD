@@ -183,6 +183,51 @@ npm start
 
 ---
 
+## 🌍 Live Deployment
+
+### 🚀 Production API
+
+https://rest-api-framework-production.up.railway.app
+
+### 📚 Interactive Swagger Documentation
+
+https://rest-api-framework-production.up.railway.app/api-docs
+
+### ❤️ Health Check Endpoint
+
+https://rest-api-framework-production.up.railway.app/api/v1/health
+
+---
+
+## ⚡ Quick Demo
+
+### Health Check
+
+```http
+GET /api/v1/health
+```
+
+Response:
+
+```json
+{
+  "success": true,
+  "message": "API is healthy.",
+  "data": {
+    "status": "healthy",
+    "database": "connected"
+  }
+}
+```
+
+### API Base URL
+
+```http
+https://rest-api-framework-production.up.railway.app/api/v1
+```
+
+---
+
 ## 📁 Project Structure
 
 ```
